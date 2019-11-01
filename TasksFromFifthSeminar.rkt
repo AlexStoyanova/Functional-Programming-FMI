@@ -144,7 +144,7 @@
         (help (cdr l) (- 1 n) (cons (car l) res))))
   (cond ((null? l) '())
         ((<= (len l) n) l)
-        (else (cons (myReverse (help l n '())) (chunk (cdr l) n)))))
+        (else (cons (myReverse (help l n '())) (chunk (cadr (myReverse (help l n '()))) n)))))
 
 (define (myPartition p l)
 (define (partition p l list1 list2)
@@ -167,6 +167,27 @@
   (if (< (len l) n) (list l)
       (cons (car (split l n))
        (chunk (cadr (split l n)) n))))
+
+
+(define (snoc x l) (append l (list x)))
+
+(define (split l n)
+  (define (iter l1 l2 counter)
+    (if (= n counter)
+        (list l2 l1)
+        (iter (cdr l1) (snoc (car l1) l2) (+ counter 1))))
+  (iter l '() 0))
+
+(define (chunk l n)
+  (if (< (len l) n)
+      (list l)
+      (cons (car (split l n))
+            (chunk (cadr (split l n)) n))))
+
+
+
+
+
 
 
 
