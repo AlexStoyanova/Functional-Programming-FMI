@@ -31,7 +31,16 @@
   (cond ((< len1 len2) (map f l1 (removeEl l2 len1)))
         ((> len1 len2) (map f (removeEl l1 len2) l2))
         (else (map f l1 l2))))
-      
+
+
+(define (zip-with1 f l1 l2)
+  (define len1 (length l1))
+  (define len2 (length l2))
+  (cond ((null? l1) '())
+        ((< len1 len2) (zip-with1 f l1 (removeEl l2 len1)))
+        ((> len1 len2) (zip-with1 f (removeEl l1 len2) l2))
+        (else (cons (apply (lambda (x y) (f (car x) (car y))) (list l1 l2))
+                    (zip-with1 f (cdr l1) (cdr l2))))))      
 
 ;Task 4, 5 
 
@@ -41,7 +50,7 @@
         (else (apply
                zip-with-more
                f
-               (apply zip-with f (list (car l) (car (cdr l))))
+               (apply zip-with1 f (list (car l) (car (cdr l))))
                (cdr (cdr l))))))
 
 
