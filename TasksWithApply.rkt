@@ -53,6 +53,8 @@
                (apply zip-with1 f (list (car l) (car (cdr l))))
                (cdr (cdr l))))))
 
+(define myMap zip-with-more)
+
 
 ;Task 6
 
@@ -60,9 +62,33 @@
   (apply map list m))
 
 
+;Task 7
 
+(define (snoc x l) (append l (list x)))
 
+(define (partial f . l)(lambda (x) (apply f (snoc x l))))
 
 
   
-  
+
+(define (pipe1 . l)
+  (if (null? (cdr l)) (lambda (x) ((car l) x))
+  (lambda () ((apply pipe1 (cdr l)) (pipe1 (car l))))))
+
+
+(define (square x)(* x x))
+
+(define (compose f g) (lambda (x) (f (g x))))
+
+
+
+
+
+(define (pipe . l)
+  (lambda (x) 
+    (if (null? (cdr l))
+        ((car l) x)
+        ((apply pipe (cdr l)) ((pipe (car l)) x)))))
+      
+
+

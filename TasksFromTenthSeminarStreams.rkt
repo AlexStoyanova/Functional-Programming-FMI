@@ -121,13 +121,13 @@
       (stream-append (head s) (stream-join (tail s)))))
 
 ;for testing:
-(define st1 (stream-range 0 6))
-(define st2 (stream-range 7 10))
-(define st3 (stream-range 11 15))
+(define st11 (stream-range 0 6))
+(define st22 (stream-range 7 10))
+(define st33 (stream-range 11 15))
 
-(define s4 (cons-stream st1 (cons-stream st2 (cons-stream st3 '()))))
+(define s44 (cons-stream st11 (cons-stream st22 (cons-stream st33 the-empty-stream))))
 
-(define allSt (stream-join s4))
+(define allSt (stream-join s44))
 
 ;task14
 
